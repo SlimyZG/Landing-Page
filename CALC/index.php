@@ -18,29 +18,21 @@ function mul($x, $y) {
 }
 
 function div($x, $y) {
-    if ($y != 0) {
-        return $x / $y;
-    } else {
-        return "Cannot be divided by 0";
-    }
+    return $y != 0 ? $x / $y : "Cannot be divided by 0";
 }
 
-// Check which operation is selected
-if (isset($_GET['operation'])) {
-    switch ($_GET['operation']) {
-        case 'add':
-            $result = add($x, $y);
-            break;
-        case 'sub':
-            $result = sub($x, $y);
-            break;
-        case 'mul':
-            $result = mul($x, $y);
-            break;
-        case 'div':
-            $result = div($x, $y);
-            break;
-    }
+// Map operations to functions
+$operations = [
+    'ADDITION' => 'add',
+    'SUBTRACTION' => 'sub',
+    'MULTIPLICATION' => 'mul',
+    'DIVISION' => 'div'
+];
+
+// Execute the selected operation
+if (isset($_GET['operation']) && isset($operations[$_GET['operation']])) {
+    $func = $operations[$_GET['operation']];
+    $result = $func($x, $y);
 }
 ?>
 <!DOCTYPE html>
